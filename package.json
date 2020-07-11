@@ -4,6 +4,10 @@
     "description": "syntax highlighting for the wac language",
     "version": "0.0.1",
     "publisher": "mtots",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/math4tots/wac_vscode"
+    },
     "engines": {
         "vscode": "^1.47.0"
     },
