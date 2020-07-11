@@ -1,0 +1,190 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "wac",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#number"
+		},
+		{
+			"include": "#string_literal"
+		},
+		{
+			"include": "#classify_names"
+		},
+		{
+			"include": "#comments"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "constant.language.wac",
+					"match": "\\b(true|false|nil)\\b"
+				},
+				{
+					"name": "keyword.control.wac",
+					"match": "\\b(break|continue|switch|else|for|if|return|try|while|yield)\\b"
+				},
+				{
+					"name": "keyword.other.wac",
+					"match": "\\$(asm|cstr|read|write)\\b|\\b(self|and|as|fn|trait|impl|import|in|is|not|or|static)\\b"
+				},
+				{
+					"comment": "Reserved keyword",
+					"name": "invalid.deprecated.wac",
+					"match": "\\b(abstract|do|struct|union|final|override)\\b"
+				}
+			]
+		},
+		"number": {
+			"comment": "int or float literals",
+			"patterns": [
+				{
+					"comment": "Integer literal (hexadecimal)",
+					"name": "constant.numeric.integer.hexadecimal.wac",
+					"match": "\\b0x[a-fA-F0-9_]+\\b"
+				},
+				{
+					"comment": "Integer literal (binary)",
+					"name": "constant.numeric.integer.binary.wac",
+					"match": "\\b0b[01_]+\\b"
+				},
+				{
+					"comment": "Integer literal (decimal)",
+					"name": "constant.numeric.integer.decimal.wac",
+					"match": "\\b[0-9][0-9_]*\\b"
+				},
+				{
+					"comment": "Floating point literal (fraction)",
+					"name": "constant.numeric.float.wac",
+					"match": "\\b[0-9][0-9_]*\\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?\\b"
+				}
+			]
+		},
+		"classify_names": {
+			"patterns": [
+				{
+					"comment": "Type definition (best effort)",
+					"match": "\\b(enum|record)\\s+([a-zA-Z_][a-zA-Z0-9_]*)\\b",
+					"captures": {
+						"1": {
+							"name": "storage.type.wac"
+						},
+						"2": {
+							"name": "entity.name.type.wac"
+						}
+					}
+				},
+				{
+					"comment": "Builtin types (best effort)",
+					"match": "\\b(void|noreturn|i32|i64|f32|f64|bool|type|char|chars|str|list|id)\\b",
+					"name": "support.type.wac"
+				},
+				{
+					"comment": "Builtin functions (best effort)",
+					"match": "\\b(F|str|repr|Assert|AssertEq|AssertSame)\\b",
+					"name": "support.function"
+				},
+				{
+					"comment": "Variable and constant declarations (best effort)",
+					"match": "\\b(var|const)\\s+[A-Za-z_][A-Za-z0-9_]*\\s+([A-Za-z_][A-Za-z0-9_]*\\b)?",
+					"captures": {
+						"1": {
+							"name": "keyword.other.wac"
+						},
+						"2": {
+							"name": "entity.name.type"
+						}
+					}
+				},
+				{
+					"comment": "Parameters (best effort)",
+					"match": "(?<=,|\\()\\s*[A-Za-z_][A-Za-z0-9_]*\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*(?=,|\\))",
+					"captures": {
+						"1": {
+							"name": "entity.name.type"
+						}
+					}
+				},
+				{
+					"comment": "Record fields (best effort)",
+					"match": "(?<=^|;)\\s*[A-Za-z_][A-Za-z0-9_]*\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*(?=$|;)",
+					"captures": {
+						"1": {
+							"name": "entity.name.type"
+						}
+					}
+				},
+				{
+					"comment": "Function or method call (best effort)",
+					"match": "\\b([A-Za-z_][A-Za-z0-9_]*)\\s*(\\[(notrace)\\])?\\(",
+					"captures": {
+						"1": {
+							"name": "entity.name.function.wac"
+						},
+						"3": {
+							"name": "entity.other.attribute-name"
+						}
+					}
+				}
+			]
+		},
+		"string_literal": {
+			"comment": "String literal",
+			"patterns": [
+				{"include": "#raw_double_quote_string_literal"},
+				{"include": "#raw_single_quote_string_literal"},
+				{"include": "#double_quote_string_literal"},
+				{"include": "#single_quote_string_literal"}
+			]
+		},
+		"escaped_character": {
+			"name": "constant.character.escape.wac",
+			"match": "\\\\(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)"
+		},
+		"single_quote_string_literal": {
+			"comment": "Single-quote string literal",
+			"name": "string.quoted.single.wac",
+			"begin": "b?'",
+			"end": "'",
+			"patterns": [
+				{
+					"include": "#escaped_character"
+				}
+			]
+		},
+		"double_quote_string_literal": {
+			"comment": "Double-quote string literal",
+			"name": "string.quoted.double.wac",
+			"begin": "b?\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"include": "#escaped_character"
+				}
+			]
+		},
+		"raw_double_quote_string_literal": {
+			"comment": "Raw double-quote string literal",
+			"name": "string.quoted.double.raw.wac",
+			"begin": "r(#*)\"",
+			"end": "\"\\1"
+		},
+		"raw_single_quote_string_literal": {
+			"comment": "Raw single-quote string literal",
+			"name": "string.quoted.single.raw.wac",
+			"begin": "r(#*)'",
+			"end": "'\\1"
+		},
+		"comments": {
+			"comment": "'#' style comments",
+			"name": "comment.line.number-sign.wac",
+			"match": "#.*"
+		}
+	},
+	"scopeName": "source.wac"
+}

@@ -1,0 +1,26 @@
+{
+    "name": "wac",
+    "displayName": "wac",
+    "description": "syntax highlighting for the wac language",
+    "version": "0.0.1",
+    "publisher": "mtots",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "wac",
+            "aliases": ["wac", "wac"],
+            "extensions": [".wac"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "wac",
+            "scopeName": "source.wac",
+            "path": "./syntaxes/wac.tmLanguage.json"
+        }]
+    }
+}
