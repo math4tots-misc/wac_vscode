@@ -81,7 +81,7 @@
 				},
 				{
 					"comment": "Builtin types (best effort)",
-					"match": "\\b(void|noreturn|i32|i64|f32|f64|bool|type|char|chars|str|list|id)\\b",
+					"match": "\\b(void|noreturn|i32|i64|f32|f64|bool|type|char|chars|bytes|str|list|id)\\b",
 					"name": "support.type.wac"
 				},
 				{
