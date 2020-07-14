@@ -2,7 +2,7 @@
     "name": "wac",
     "displayName": "wac",
     "description": "syntax highlighting for the wac language",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "mtots",
     "repository": {
         "type": "git",
