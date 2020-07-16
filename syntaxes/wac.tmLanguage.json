@@ -31,7 +31,7 @@
 				},
 				{
 					"name": "keyword.other.wac",
-					"match": "\\$(asm|cstr|char|raw|read(1|2|4|8)|write(1|2|4|8))\\b|\\b(self|new|and|as|fn|end|trait|impl|import|in|is|not|or|static)\\b"
+					"match": "\\$(asm|cstr|char|raw|read(1|2|4|8)|write(1|2|4|8))\\b|\\b(self|extern|new|and|as|fn|end|trait|impl|import|in|is|not|or|static)\\b"
 				},
 				{
 					"comment": "Reserved keyword",
